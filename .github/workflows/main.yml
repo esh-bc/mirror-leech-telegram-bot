@@ -1,0 +1,21 @@
+name: Test MLTB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create config
+        run: cp config_sample.py config.py
+
+      - name: Build Docker Image
+        run: docker build -t mltb .
+
+      - name: Start Bot
+        run: docker run --rm mltb
